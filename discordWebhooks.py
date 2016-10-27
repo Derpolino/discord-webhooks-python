@@ -14,7 +14,7 @@ class Webhooks():
         self.attachments = []
 
     def addAttachment(self, attachment):
-        if attachment.__class__.__name__ == "Attachments":
+        if isinstance(attachment, Attachments):
             self.attachments.append(attachment)
         else:
             raise Exception("The attachment is not a correct attachment object")
@@ -75,7 +75,7 @@ class Attachments(classmethod):
         self.fields = []
 
     def addField(self, field):
-        if field.__class__.__name__ == "Fields":
+        if isinstance(field, Fields):
             self.fields.append(field)
         else:
             raise Exception("The field is not a correct field object")

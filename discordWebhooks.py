@@ -3,7 +3,7 @@
 import json
 import requests
 
-class Webhooks():
+class Webhook():
     def __init__(self, url, content, username="", icon_url=""):
         """
         Initialize a Discord Webhook object.

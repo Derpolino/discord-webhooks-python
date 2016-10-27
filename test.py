@@ -1,20 +1,20 @@
-from discordWebhooks import Webhooks, Attachments, Fields
+from discordWebhooks import Webhook, Attachment, Field
 
 url = "XXX"
-wh = Webhooks(url, "Coucou tout le monde", "Pseudo")
+wh = Webhook(url, "Coucou tout le monde", "Pseudo")
 
-at = Attachments(author_name = "Derpolino", color = "#ff0000", title = "Discord webhooks")
+at = Attachment(author_name = "Derpolino", color = "#ff0000", title = "Discord webhooks")
 
-field = Fields("Version", "1.0", True)
+field = Field("Version", "1.0", True)
 at.addField(field)
-field = Fields("Last update", "27/10/2016", True)
+field = Field("Last update", "27/10/2016", True)
 at.addField(field)
-field = Fields("Changelog", "Initiale release !", False)
+field = Field("Changelog", "Initiale release !", False)
 at.addField(field)
 
 wh.addAttachment(at)
 
-at = Attachments(author_name = "Github", color = "#0000ff", title = "Hello world")
+at = Attachment(author_name = "Github", color = "#0000ff", title = "Hello world")
 wh.addAttachment(at)
 
 wh.post()

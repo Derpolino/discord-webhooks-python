@@ -3,23 +3,36 @@
 import json
 import requests
 
-class Webhooks():
+class Webhook():
     def __init__(self, url, content, username="", icon_url=""):
+        """
+        Initialize a Discord Webhook object.
+        @param {String} url - The webhook url where to make requests.
+        @param {String} content - TODO: Document this variable usage.
+        @param {String} username - The username to use while sending data to the webhook, may be left blank.
+        @param {String} icon_url - An icon url, may be left blank.
+        """
         self.url = url if "/slack" in url else url + "/slack"
         self.content = content
         self.username = username
         self.icon_url = icon_url
         self.formated = ""
-
         self.attachments = []
 
     def addAttachment(self, attachment):
-        if attachment.__class__.__name__ == "Attachments":
+        """
+        Add a specified Attachment to self.attachments for later usage.
+        @param {Attachment} attachment - The Attachment object to append.
+        """
+        if isinstance(attachment, Attachment):
             self.attachments.append(attachment)
         else:
             raise Exception("The attachment is not a correct attachment object")
 
     def format(self):
+        """
+        Format the current object as a valid JSON object.
+        """
         data = {}
         data["username"] = self.username
         data["text"] = self.content
@@ -52,6 +65,9 @@ class Webhooks():
         self.formated = json.dumps(data)
 
     def post(self):
+        """
+        Send the JSON formated object to the specified `self.url`.
+        """
         self.format()
         result = requests.post(self.url, data=self.formated).text
         if result == "ok":
@@ -59,8 +75,11 @@ class Webhooks():
         else:
             raise Exception("Error on post : " + str(result))
 
-class Attachments(classmethod):
+class Attachment(classmethod):
     def __init__(self, **args):
+        """
+        Initialize an Attachment object and fill the properties from given $args.
+        """
         self.author_name = args["author_name"] if "author_name" in args else ""
         self.author_icon = args["author_icon"] if "author_icon" in args else ""
         self.color = args["color"] if "color" in args else ""
@@ -71,17 +90,26 @@ class Attachments(classmethod):
         self.footer = args["footer"] if "footer" in args else ""
         self.footer_icon = args["footer_icon"] if "footer_icon" in args else ""
         self.ts = args["ts"] if "ts" in args else ""
-
         self.fields = []
 
     def addField(self, field):
-        if field.__class__.__name__ == "Fields":
+        """
+        Add a field to the current Attachment object.
+        @param {Fields} field - The field object to add to this attachment.
+        """
+        if isinstance(field, Field):
             self.fields.append(field)
         else:
             raise Exception("The field is not a correct field object")
 
-class Fields():
+class Field():
     def __init__(self, title="", value="", short=False):
+        """
+        Initialize a Field object.
+        @param {String} title - The field title (aka. key).
+        @param {String} value - The field value.
+        @param {Boolean} short - TODO: Document usage of this variable.
+        """
         self.title = title
         self.value = value
         self.short = short

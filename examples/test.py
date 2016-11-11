@@ -1,6 +1,10 @@
+import sys
+import os
+sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)), os.pardir))
+
 from discordWebhooks import Webhook, Attachment, Field
 
-url = "XXX"
+url = "https://ptb.discordapp.com/api/webhooks/246756716346212352/hztlLeSpjVaEKegZNivD6gvUA86wdRLmIx29_g2onRIGuaYD0pZfVor8LcNnhpSHnBtR"
 wh = Webhook(url, "Coucou tout le monde", "Pseudo")
 
 at = Attachment(author_name = "Derpolino", color = "#ff0000", title = "Discord webhooks")

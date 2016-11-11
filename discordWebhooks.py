@@ -89,7 +89,7 @@ class Attachment(classmethod):
         self.image_url = args["image_url"] if "image_url" in args else ""
         self.footer = args["footer"] if "footer" in args else ""
         self.footer_icon = args["footer_icon"] if "footer_icon" in args else ""
-        self.ts = args["ts"] if "ts" in args else ""
+        self.ts = args["ts"] if "ts" in args else 0
         self.fields = []
 
     def addField(self, field):
